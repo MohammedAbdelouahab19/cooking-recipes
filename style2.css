@@ -1,0 +1,153 @@
+@font-face {
+    font-family: "title";
+    src: url("Motken.ttf");
+}
+@font-face {
+    font-family: "p";
+    src: url("AGA.ttf");
+}
+@font-face {
+    font-family: "all";
+    src: url("all.ttf");
+}
+@font-face {
+    font-family: "newyork";
+    src: url("newyork.ttf");
+}
+*{
+    font-family: "p";
+    margin: 0;
+    padding: 0;
+}
+#Main{
+    background-color: #FD7463;
+    color:white;
+    text-align: center;
+    /*height: 100vh;*/
+    width: 100%;
+    padding-top: 15%;
+    overflow: hidden;
+    margin: 0;
+    height: 100%;
+}
+.getStarted{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 15%;
+}
+.getStarted button{
+    padding: 0 16%;
+    border-radius: 39px;
+    color: #ff4c4c;
+    font-size: 37px;
+    font-weight: bold;
+    border: 1px #ff4c4c solid;
+}
+#Main h2{
+    font-size: 40px;
+    font-weight: 100;
+    font-family: "title";
+}
+#Main .img{
+    padding-top: 13%;
+}
+
+
+
+#Menu{
+    text-align: right;
+    padding: 0 2% 2% 2%;
+}
+#Menu .title p{
+    font-size: 42px;
+    font-family: "newyork";
+    line-height: 43px;
+    text-align: right;
+    padding:6%;
+    margin-left:auto;
+}
+.search{
+    text-align: center;
+}
+#searchBar{
+    border: none;
+    border-radius: 10px;
+    background: #ededed url("search.png") no-repeat scroll 7px 7px;
+    background-position-x: right;
+    padding-right:35px;
+    height: 42px;
+    width: 70%;
+    text-align: right;
+    font-size: 20px;
+}
+#searchBar:hover , #searchBar:focus{
+    border:none;
+    outline: none;
+}
+
+#ListRecipes{
+    padding: 2% 0;
+    background-color: #f3cdcd6b;
+    border-radius: 8px;
+    margin-top: 6%;
+    font-family: "all";
+    font-weight: bold;
+    overflow-y: scroll;
+    margin-bottom: 10%;
+}
+#ListRecipes .partRecipe{
+    width: 90%;
+    display: flex;
+    background-color: white;
+    border-radius: 8px;
+    padding: 5px;
+    margin: 10px auto auto;
+}
+#ListRecipes .partRecipe p{
+    width: 71%;
+    margin: auto;
+}
+#ListRecipes .partRecipe img{
+    width: 20%;
+    margin-left: auto;
+    border-radius: 8px;
+}
+#Menu hr{
+    width: 70%;
+    margin: 6% auto;
+    opacity: 37%;
+}
+
+
+#ListMenu{
+    background-color: #ff4c4c;
+    padding: 6px;
+    border-radius: 8px;
+    display: flex;
+    overflow-x: scroll;
+    font-weight: bold;
+    border: 2px #e91616 solid;
+}
+#ListMenu .partMenu{
+    background-color: #ededed;
+    padding: 2%;
+    width: fit-content;
+    border-radius: 9px;
+    margin-left: 2%;
+}
+
+#nav{
+    display: flex;
+    background-color: #f1f1f1;
+    width: 100%;
+    position: fixed;
+    padding: 6px;
+    bottom: 0;
+}
+#nav div{
+    text-align: center;
+    width: 33%;
+    color: #ff4c4c;
+    font-size: 24px;
+}

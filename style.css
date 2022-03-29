@@ -1,33 +1,40 @@
 @font-face {
     font-family: "apple";
-    src: url("applefont.otf") format("woff2");
+    src: url("SF-Arabic.dmg");
 }
 body{
-    background-color:black;
+    background-color:whitesmoke;
+    width: -webkit-fill-available;
+    position: fixed;
+
 }
 *{
     margin: 0;
     padding: 0;
 }
-#imageTopIndex{
+.searchBar{
+    text-align: right;
+}
+.imageTopIndex{
     position: relative;
     display: flex;
 }
-#imageTopIndex img{
+.imageTopIndex img{
     width: 100%;
     position: absolute;
     z-index: -1;
 }
-#imageTopIndex input{
+.imageTopIndex input{
     background-color: #00000099;
-    border: none;
     border-radius: 10px 0 0 10px;
     height: 30px;
     padding: 2px;
     color: white;
-    font-weight: 600;
+    font-size: 22px;
+    border-bottom:2px white solid;
+    border-left:2px white solid;
 }
-#searchDiv{
+.searchDiv{
     margin: auto;
     padding-top: 10%;
 }
@@ -36,17 +43,44 @@ input:focus{
     box-shadow: none;
 }
 
-#menus{
-    position: inherit;
+.menus,.subMenus, .subRecipe{
     background-color: white;
-    border-radius: 10px 10px 0 0;
-    padding: 12px;
-    margin-top: 10px;
+    border-radius: 50px 50px 0 0;
+    padding: 23px 10px 0 10px;
+    margin-top: 25px;
 }
-#ListMenu{
-    display: table;
-    clear: both;
-    width: 100%;
+.subMenus,.subRecipe{
+    margin-top: 0 !important;
+}
+.headSubMenu{
+    justify-content: space-between;
+    display: flex;
+    width: 89%;
+    margin: auto;
+}
+.headSubMenu span{
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 21px;
+    background: #f1f1f1;
+    padding: 9px;
+    border-radius: 12px;
+}
+.menus h1,.subMenus h1{
+    border-bottom: 7px orange solid;
+    width: fit-content;
+    margin: auto;
+    overflow-x: scroll;
+}
+.ListMenu{
+    width: 95%;
+    background-color: #f5e7e7;
+    display: flex;
+    overflow-x:scroll;
+    margin: 12px auto auto;
+    border-radius: 12px;
+    padding: 2px;
+    box-shadow: 0 2px 3px 0 #00000033;
 }
 .menu{
     float: left;
@@ -56,14 +90,108 @@ input:focus{
 .menu span{
     padding-right: 5px;
 }
-#ListMenu .contentMenu{
-    overflow: visible !important;
-    background: linear-gradient(45deg, #dd4d16 10%, #e19100 90%);
+.ListMenu .contentMenu{
+    overflow: scroll;
+    background: gray;
     margin: 6px;
     border-radius: 3px;
-    padding: 23px 6px;
-    box-shadow: 4px 3px 6px #681b04;
+    padding: 10px 6px;
+    box-shadow: 2px 0px 1px #a5a5a5;
+    white-space: nowrap;
+    color: white;
 }
-#ListMenu .contentMenu:hover{
-    background: linear-gradient(45deg, #db450c 10%, #ea9b0b 90%);
+.ListMenu .contentMenu:hover{
+    background: linear-gradient(45deg, #f7b132 10%, #ed5820 90%);
+}
+.subMenu{
+    display: flex;
+    width: 90%;
+    background-color: #f9e2bd1c;
+    border-radius: 12px;
+    padding: 6px;
+    box-shadow: 0 4px 3px #ffe7bd;
+    border: 1px #fccf7f solid;
+    margin: 12px auto auto;
+    justify-content: space-between;
+}
+#activeSubMenu{
+    background: linear-gradient(45deg, #dd4d16 10%, #e19100 90%);
+}
+.imageSubMenu{
+    width: 20%;
+}
+.imageSubMenu img{
+    width: 100%;
+    border-radius: 12px;
+}
+.titleSubMenu{
+    margin: auto 0 auto 13px;
+}
+.ListSubMenu, .detailRecipe{
+    background-color: #f5f4f3;
+    width: 100%;
+    border-radius: 12px;
+    overflow-y: scroll;
+}
+.content{
+    width: 90%;
+    background-color: #f9e2bd1c;
+    border-radius: 12px;
+    padding: 6px;
+    box-shadow: 0 4px 3px #faeed9;
+    border: 1px #f1cc8a solid;
+    margin: 12px auto auto;
+    justify-content: space-between;
+}
+
+.fixedMenu{
+    z-index: 9899;
+    position: fixed;
+    width: 100%;
+    background-color: #ff9900;
+    display: flex;
+    bottom: 0;
+    color: white;
+    border-top: 2px #e07708 solid;
+}
+.fixedMenu div{
+    padding: 2%;
+    border-right: 1px #8a8a8a solid;
+    width: 33%;
+    text-align: center;
+}
+.fixedMenu .favorite{
+    color: #db1e3d;
+}
+.fixedMenu .home{
+    color: #ffffff;
+}
+.loading{
+    text-align: center;
+    font-size: 22px;
+    font-family: Algerian;
+    width: 100%;
+}
+.fav{
+    margin: auto;
+}
+.fav button{
+    margin: auto;
+    padding: 11px;
+    background-repeat: no-repeat;
+    text-align: center;
+    background-size: contain;
+    border: none;
+    color: red;
+}
+.fav .plus{
+    background-image: url("pluss.png");
+}
+.fav .moins{
+    background-image: url("moins.png");
+}
+.favoritePage{
+    display: none;
+    position: fixed;
+    top: 20%;
 }

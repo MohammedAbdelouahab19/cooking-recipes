@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+<div class="favoritePage">
+    aa
+</div>
+
+<div class="fixedMenu">
+    <div class="home" onclick="home()">
+        <span><i class="fa-solid fa-house"></i></span>
+        Home
+    </div>
+    <div onclick="toggleFav()" class="favorite">
+        <span><i class="fa-solid fa-heart"></i></span>
+        Favourite
+    </div>
+    <div class="back">
+        <span><i class="fa-solid fa-angle-left"></i></span>
+        Back
+    </div>
+</div>
+
+<!-- Main Menu -->
+<div class="MainMenu">
+    <div class="imageTopIndex">
+        <img loading="lazy" src="téléchargement.jpg">
+        <div class="searchDiv">
+            <input type="text" class="searchBar" placeholder="... ابحث عن وصفات">
+            <i class="seachIcon fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+    <div class="menus">
+        <div class="headSubMenu">
+            <!--<span onclick="back('ListMenu')"> <i class="fa-solid fa-angle-left"></i></span>-->
+            <h1>وصفات</h1>
+        </div>
+        <div class="ListMenu">
+            <div class="loading">Loading ...</div>
+        </div>
+        <div class="subMenus">
+            <div class="ListSubMenu">
+
+            </div>
+        </div>
+        <div class="subRecipe" style="display: none">
+            <div class="detailRecipe">
+loading ...
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<!-- End Main Menu -->
+
+
+</body>
+
+<!-- Start SCRIPT -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"
+        integrity="sha512-yFjZbTYRCJodnuyGlsKamNE/LlEaEAxSUDe5+u61mV8zzqJVFOH7TnULE2/PP/l5vKWpUNnF4VGVkXh3MjgLsg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="jquery.js"></script>
+
+<script>
+    var menu, currentMenuId = 1, subMenu,favoriteRecipes=[],where = "home"
+
+    if(localStorage.getItem("fav") != null)favoriteRecipes = localStorage.getItem("fav").split('-')
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "menu.json", success: function (result) {
+                menu = result
+                $(".ListMenu").html('')
+                for (let i = 0; i < menu.length; i++) {
+                    if (menu[i].id == 1) {
+                        $(".ListMenu").append(
+                            "<div class='menu' id='menu" + menu[i].id + "' onclick='chooseMenu(" + menu[i].id + ",event)'>" +
+                            "    <div class='contentMenu' id='activeSubMenu'>" +
+                            "        <p>"+menu[i].title+"</p>" +
+                            "    </div>" +
+                            "</div>"
+                        )
+                    } else {
+                        $(".ListMenu").append(
+                            "<div class='menu' id='menu" + menu[i].id + "' onclick='chooseMenu(" + menu[i].id + ",event)'>" +
+                            "    <div class='contentMenu'>" +
+                            "        <p>" + menu[i].title + "</p>" +
+                            "    </div>" +
+                            "</div>"
+                        )
+                    }
+                }
+                fillSubMenu(1)
+            }
+        });
+    })
+
+    function chooseMenu(idMenu, event) {
+        currentMenuId = idMenu
+        fillSubMenu(currentMenuId)
+        $(".contentMenu").removeAttr("id")
+        $("#menu" + idMenu + " .contentMenu").attr("id", "activeSubMenu")
+    }
+
+    function fillSubMenu(menuId) {
+        $.ajax({
+            url: "data.json", success: function (result) {
+                subMenu = []
+                subMenu = result
+                $(".ListSubMenu").html('')
+                for (let i = 0; i < subMenu.length; i++) {
+                    if (subMenu[i].menuId == menuId) {
+                        favoriteRecipes.includes(""+subMenu[i].id) ? icon = "moins" : icon = "plus";
+                        $(".ListSubMenu").append(
+                            '<div class="subMenu">' +
+                            '   <div onclick="chooseRecipe('+subMenu[i].id+')" style="display: flex">' +
+                            '       <div class="imageSubMenu">' +
+                            '           <img loading="lazy" src="téléchargement.jpg" alt="image">' +
+                            '       </div>' +
+                            '       <div class="titleSubMenu">' +
+                            '           <h4>'+subMenu[i].title+'</h4>' +
+                            '       </div>' +
+                            '   </div>' +
+                            '   <div onclick="favorite('+subMenu[i].id+',event)" class="fav">' +
+                            '     <button class="'+icon+'"> </button>' +
+                            '   </div>' +
+                            '</div>'
+                        )
+                    }
+                }
+            }
+        });
+    }
+
+    function home(){
+        $(".subRecipe").hide()
+        $(".subMenus").show()
+        $(".ListSubMenu").show()
+        $(".ListMenu").show()
+        $(".subMenu").show()
+        $(".detailRecipe").hide()
+        $(".imageTopIndex img").removeAttr('src')
+        $(".imageTopIndex img").attr('src','téléchargement.jpg')
+        $(".headSubMenu h1").html("وصفات")
+        fillSubMenu(currentMenuId)
+        where="home"
+    }
+
+    function chooseRecipe(idRecipe){
+        where = "recipe"
+        $(".subRecipe").show()
+        $(".detailRecipe").show()
+        $(".subMenus").hide()
+        $(".ListMenu").hide()
+        $(".detailRecipe").html('')
+        for (let i = 0; i < subMenu.length; i++) {
+            if (subMenu[i].id == idRecipe) {
+                $(".imageTopIndex img").removeAttr('src')
+                $(".imageTopIndex img").attr('src',subMenu[i].img)
+                $(".headSubMenu h1").html(subMenu[i].title)
+                favoriteRecipes.includes(""+subMenu[i].id) ? icon = "plus" : icon = "moins";
+                $(".detailRecipe").html(
+                    '<div class="subMenu">'+
+                    '   <div style="text-align: right">'+
+                    '       '+
+                    '           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti fugiat iure molestiae soluta ut. Architecto doloribus non nostrum quos sapiente voluptatem, voluptates? Accusantium aspernatur beatae dicta et facere itaque, laudantium modi necessitatibus nisi, odio quia reiciendis tempore voluptate! Ab aspernatur blanditiis doloremque dolores dolorum ducimus ex ipsa itaque laboriosam molestias non obcaecati placeat porro praesentium, provident rem, sequi, tempore unde. Adipisci aliquid, consequuntur cupiditate debitis dolor eius eum illo itaque maiores molestiae pariatur possimus quae quam repellat velit, voluptate voluptatibus. A adipisci autem consectetur corporis culpa cum cumque cupiditate eum facilis incidunt ipsum labore laborum, maiores, numquam obcaecati quas quia quisquam quod repudiandae tempora veritatis vero, voluptate voluptatibus. Asperiores deserunt eius, eum facere hic itaque, minus necessitatibus neque nisi, non numquam placeat praesentium quae? Consectetur illo nemo obcaecati qui sit! Accusantium aliquam dolorum earum et necessitatibus numquam quam quidem sed. Accusamus at deserunt dolore eveniet facilis, maxime natus non nulla obcaecati quae quis quod, repellendus rerum sit tenetur vero vitae! Aliquid dicta error est ex facere fuga, hic illum ipsam ipsum iusto laboriosam molestiae molestias non numquam obcaecati odio perferendis porro possimus quae quis quod recusandae reiciendis rerum saepe sapiente sed suscipit tempore, temporibus tenetur ut? Blanditiis ducimus eius illo maiores provident quasi rerum soluta velit voluptates. Ab blanditiis cum delectus, dolore dolores ducimus enim explicabo facere fugit ipsum maxime molestiae nisi nobis obcaecati officiis perspiciatis, quas quidem quo quod rem repudiandae sit soluta tempora tenetur ut voluptates voluptatum. Delectus dicta dolor labore modi nesciunt nulla perferendis quaerat similique suscipit voluptatum! Ab accusamus architecto, ea illo laudantium maiores nam non numquam praesentium quibusdam reprehenderit saepe sed tempora voluptates voluptatibus! Deleniti dolorem exercitationem, fuga ipsam iure natus nesciunt nostrum provident quae quibusdam quis, quisquam totam. Culpa delectus earum explicabo fugiat ipsam iure pariatur perspiciatis quaerat quidem sit. Cupiditate delectus ducimus eaque earum eligendi impedit quos ratione repellendus sunt ut? Ad dolore enim error minus modi pariatur tempore! Autem consectetur cumque dolores hic in iste nemo pariatur quos reprehenderit repudiandae? Accusantium ad aliquam at commodi culpa cupiditate deserunt eaque excepturi exercitationem fugiat illo in inventore ipsa iste laborum mollitia natus obcaecati odio pariatur placeat praesentium provident quos, recusandae repellendus sit, ut velit veritatis. Aspernatur enim, error illum impedit inventore itaque molestias nemo odit ut! A amet asperiores assumenda autem consequuntur corporis cupiditate delectus doloribus dolorum earum enim eos error ex explicabo fugit id inventore labore libero magnam natus optio placeat porro quae quibusdam, quos rem repudiandae similique temporibus ullam velit voluptatem voluptates voluptatibus voluptatum. Ad autem, consequuntur corporis cum eligendi facilis officia quas veritatis. Adipisci, aut blanditiis delectus eligendi laboriosam molestias nesciunt quae quia saepe sed sint tempora, ullam ut velit voluptas. Adipisci blanditiis commodi consequatur deleniti dicta dignissimos earum et exercitationem expedita, fuga labore nam nostrum odit, officia pariatur tempora voluptas. Aperiam dicta ducimus enim fugiat id impedit inventore ipsa iure, minus nulla, odit qui reiciendis tempora voluptatibus voluptatum? Commodi dolorem maiores mollitia perspiciatis possimus quod, ullam voluptatem? Ab accusamus accusantium aliquam aliquid architecto asperiores aspernatur atque commodi corporis debitis deleniti dolore eveniet ex facere illum incidunt ipsam ipsum itaque, laudantium modi molestiae molestias nemo nihil non nulla, officia pariatur praesentium quaerat qui quidem quisquam, repellendus repudiandae similique sint veniam veritatis voluptatibus. Ad blanditiis corporis culpa dolore dolorum earum facere labore odit officia omnis possimus, quos saepe sed, sequi tempora voluptas voluptates? Accusamus accusantium ad aliquid at, deserunt earum eius exercitationem facilis fuga fugiat id incidunt ipsam molestiae necessitatibus neque nihil officia quaerat qui reiciendis sed sequi soluta tempora tenetur totam vero voluptas voluptatum. Dignissimos ducimus enim id iste, magnam nisi officia officiis, praesentium quam quidem ullam ut? Ad dignissimos ducimus, expedita illum nam quisquam sint. Ad, adipisci aut culpa deserunt dicta dolores ducimus, eius id illo officia optio quae quibusdam quod veritatis vero vitae voluptatibus? A aperiam consectetur consequatur corporis cupiditate debitis dolore doloribus error eum ex hic illo incidunt ipsum itaque iure, minus non, obcaecati officia quia quo rem sapiente tenetur vero voluptate voluptates. Aliquam atque blanditiis earum eius hic nemo nisi perferendis repellendus reprehenderit ut, veniam, voluptatum! Alias aperiam architecto assumenda aut corporis cum cupiditate dignissimos dolore doloremque ea error exercitationem fugit impedit inventore laborum modi necessitatibus nostrum nulla officia omnis optio pariatur perspiciatis praesentium, quidem reprehenderit sed sequi similique ut vitae voluptatem. Doloribus, velit, voluptatem? Aut deleniti ea, ipsam possimus quia saepe sint tempora. Consectetur dignissimos dolorem doloremque vitae? Accusantium hic nemo quasi sequi voluptatem. Accusamus architecto deleniti excepturi, incidunt ipsa iure iusto magni modi neque quibusdam rerum totam ut. Ab aspernatur at aut, autem deleniti dolores ducimus error explicabo incidunt nisi nobis officia perspiciatis possimus quam recusandae repellat repudiandae similique tempore vel veritatis! Accusamus adipisci animi assumenda autem consectetur corporis culpa eligendi esse ex expedita facere fuga, fugit illum incidunt ipsa iure laborum laudantium magni maiores molestias necessitatibus nesciunt nobis nostrum nulla numquam officiis perspiciatis possimus quasi quia quisquam quos recusandae rem reprehenderit repudiandae tenetur totam unde. A animi aperiam asperiores commodi consequatur corporis, dolores eaque facere fugiat harum illum incidunt laudantium maxime molestiae numquam pariatur perspiciatis, porro possimus quasi quo quos recusandae repellat repudiandae similique tempore tenetur vero voluptatum. A, consequatur dignissimos dolore error exercitationem id quae quibusdam soluta vitae voluptatibus! Commodi consequuntur culpa cumque deserunt earum esse, explicabo numquam pariatur rem saepe. Accusamus alias aut, beatae blanditiis corporis cum cumque dolorem dolores exercitationem explicabo harum illo incidunt ipsa magni molestiae molestias mollitia nemo nesciunt numquam obcaecati odit praesentium quam qui quia saepe sed sit soluta sunt, velit, veritatis? Amet, assumenda, sed! Alias architecto cupiditate dolor dolorem, esse explicabo fugiat nam non odit quaerat quasi, qui rem, sequi! Accusantium ad, aliquam amet aperiam asperiores assumenda consectetur cum cumque dolor dolores exercitationem expedita illo illum ipsum labore laborum magnam maiores obcaecati odio pariatur perspiciatis porro provident quas qui quia quibusdam quis quos reprehenderit sequi soluta sunt suscipit tempora tenetur ut vel velit voluptatem? Ab aliquam eveniet excepturi maxime natus omnis ratione recusandae rerum vero. Amet blanditiis consequatur cum cumque delectus dicta, eos facere in laudantium magnam modi nihil nisi non odio omnis pariatur perferendis, qui quia rerum sequi similique totam unde ut velit veniam voluptas.' +
+                    '   </div>'+
+                    '</div>'
+                )
+            }
+        }
+    }
+
+    function favorite(idRecipe,event){
+        where = "favorite"
+        event.target.removeAttribute("class")
+        let LS = localStorage.getItem("fav")
+        if(LS == null || LS == ""){
+            favoriteRecipes.push(idRecipe)
+            localStorage.setItem("fav","-"+idRecipe)
+            event.target.setAttribute("class","moins")
+        }else{
+            let exit = false , index = -1
+            let str = ""
+            for(let i=0;i<favoriteRecipes.length;i++){
+                if(favoriteRecipes[i]==idRecipe){
+                    exit = true
+                    index = i
+                }
+            }
+            if(exit){
+                favoriteRecipes.splice(index,1)
+                event.target.setAttribute("class","plus")
+            }else{
+                favoriteRecipes.push(idRecipe)
+                event.target.setAttribute("class","moins")
+            }
+            localStorage.setItem("fav","")
+            for(let i=0;i<favoriteRecipes.length;i++) {
+                localStorage.setItem("fav", localStorage.getItem("fav")+favoriteRecipes[i]+"-")
+            }
+        }
+        console.log(favoriteRecipes)
+    }
+
+    function back(where) {
+        $(".ListMenu").hide();
+        $(".ListSubMenu").hide();
+        $("." + where).show();
+    }
+
+    function toggleFav(){
+        $(".favoritePage").toggle();
+    }
+
+    $(".subMenus").height(innerHeight * 80 / 100);
+    $(".subRecipe").height(innerHeight * 80 / 100);
+    $(".ListSubMenu").height(($("body").height() / 2) + 10)
+    $(".detailRecipe").height(($("body").height() / 2) + 80)
+
+
+</script>
+
+<!-- End SCRIPT -->
+</html>

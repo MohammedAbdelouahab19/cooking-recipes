@@ -6,77 +6,143 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Index</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
           integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div id="imageTopIndex">
-        <img src="téléchargement.jpg">
-        <div id="searchDiv">
-            <input type="text" id="searchBar" placeholder="Search for recipes">
-            <i id="seachIcon" class="fa-solid fa-magnifying-glass"></i>
-        </div>
-    </div>
-    <div id="menus">
-        <div>
-            <h1>Menu</h1>
-        </div>
-        <div id="ListMenu">
-            <div class="menu">
-                <div class="contentMenu">
-                    <span class="fa-solid fa-magnifying-glass"></span>
-                    <p>Menu 1</p>
-                </div>
-            </div>
-            <div class="menu">
-                <div class="contentMenu">
-                    <span class="fa-solid fa-magnifying-glass"></span>
-                    <p>Menu 1</p>
-                </div>
-            </div>
-            <div class="menu">
-                <div class="contentMenu">
-                    <span class="fa-solid fa-magnifying-glass"></span>
-                    <p>Menu 1</p>
-                </div>
-            </div>
-            <div class="menu">
-                <div class="contentMenu">
-                    <span class="fa-solid fa-magnifying-glass"></span>
-                    <p>Menu 1</p>
-                </div>
-            </div>
-            <div class="menu">
-                <div class="contentMenu">
-                    <span class="fa-solid fa-magnifying-glass"></span>
-                    <p>Menu 1</p>
-                </div>
-            </div>
-            <div class="menu">
-                <div class="contentMenu">
-                    <span class="fa-solid fa-magnifying-glass"></span>
-                    <p>Menu 1</p>
-                </div>
-            </div>
-            <div class="menu">
-                <div class="contentMenu">
-                    <span class="fa-solid fa-magnifying-glass"></span>
-                    <p>Menu 1</p>
-                </div>
-            </div>
 
+    <div id="Main">
+        <h2>استمتع في طبخك</h2>
+        <p>طبقات لذيذ و شهية<br>الآن، فقط على هاتفك</p>
+        <div class="img">
+            <img src="cooking-person.PNG" alt="...">
+        </div>
+        <div class="getStarted">
+            <button onclick="showMyChoice('Menu')">إبدأ الآن</button>
         </div>
     </div>
+
+
+    <div id="Menu" style="display: none">
+        <div>
+            <div class="title">
+                <p>ماذا تريد ان تطبخ اليوم ؟</p>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="البحث" id="searchBar">
+            </div>
+        </div>
+        <hr>
+        <div id="ListMenu">
+            <div class="partMenu">
+                <p class="title">طاجين</p>
+            </div>
+            <div class="partMenu">
+                <p class="title">طاجين</p>
+            </div>
+            <div class="partMenu">
+                <p class="title">طاجين</p>
+            </div>
+            <div class="partMenu">
+                <p class="title">طاجين</p>
+            </div>
+            <div class="partMenu">
+                <p class="title">طاجين</p>
+            </div>
+            <div class="partMenu">
+                <p class="title">طاجين</p>
+            </div>
+            <div class="partMenu">
+                <p class="title">طاجين</p>
+            </div>
+        </div>
+        <div id="ListRecipes">
+            <div class="partRecipe">
+                <p class="title">طاجين مغربي</p>
+                <img src="téléchargement.jpg" alt="">
+            </div>
+            <div class="partRecipe">
+                <p class="title">طاجين مغربي</p>
+                <img src="téléchargement.jpg" alt="">
+            </div>
+            <div class="partRecipe">
+                <p class="title">طاجين مغربي</p>
+                <img src="téléchargement.jpg" alt="">
+            </div>
+            <div class="partRecipe">
+                <p class="title">طاجين مغربي</p>
+                <img src="téléchargement.jpg" alt="">
+            </div>
+            <div class="partRecipe">
+                <p class="title">طاجين مغربي</p>
+                <img src="téléchargement.jpg" alt="">
+            </div>
+            <div class="partRecipe">
+                <p class="title">طاجين مغربي</p>
+                <img src="téléchargement.jpg" alt="">
+            </div>
+            <div class="partRecipe">
+                <p class="title">طاجين مغربي</p>
+                <img src="téléchargement.jpg" alt="">
+            </div>
+            <div class="partRecipe">
+                <p class="title">طاجين مغربي</p>
+                <img src="téléchargement.jpg" alt="">
+            </div>
+            <div class="partRecipe">
+                <p class="title">طاجين مغربي</p>
+                <img src="téléchargement.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+
+    <div id="recipe">
+
+    </div>
+
+
+    <div id="fav">
+
+    </div>
+
+    <div id="nav" style="display: none">
+        <div class="home">
+            <span class="fa-solid fa-home"></span>
+        </div>
+        <div class="search">
+            <span class="fa-solid fa-search"></span>
+        </div>
+        <div class="fav">
+            <span class="fa-solid fa-heart"></span>
+        </div>
+    </div>
+
 </body>
 
-<!-- Start SCRIPT -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"
         integrity="sha512-yFjZbTYRCJodnuyGlsKamNE/LlEaEAxSUDe5+u61mV8zzqJVFOH7TnULE2/PP/l5vKWpUNnF4VGVkXh3MjgLsg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<!-- End SCRIPT -->
+<script src="jquery.js"></script>
+
 <script>
 
+    showMyChoice("Main")
+    $(document).ready(function(){
+        //$("#ListRecipes").height(innerHeight/2)
+        $("#nav").hide()
+    })
+
+    function showMyChoice(choice){
+        choice != "Main" ? $("#Main").hide() : $("#Main").show()
+        choice != "Menu" ? $("#Menu").hide() : $("#Menu").show();$("#nav").show()
+        choice != "recipe" ? $("#recipe").hide() : $("#recipe").show();$("#nav").show()
+        choice != "fav" ? $("#fav").hide() : $("#fav").show();$("#nav").show()
+
+    }
+
 </script>
+
 </html>

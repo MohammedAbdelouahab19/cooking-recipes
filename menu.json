@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "menu 1",
+    "icon": "https://raw.githubusercontent.com/dasileker/food-wasafat/development/public/logo192.png"
+  },
+  {
+    "id": 2,
+    "title": "menu 2",
+    "description": "https://raw.githubusercontent.com/dasileker/food-wasafat/development/public/logo192.png"
+  },
+  {
+    "id": 3,
+    "title": "menu 3",
+    "description": "https://raw.githubusercontent.com/dasileker/food-wasafat/development/public/logo192.png"
+  },
+  {
+    "id": 4,
+    "title": "menu 4",
+    "description": "https://raw.githubusercontent.com/dasileker/food-wasafat/development/public/logo192.png"
+  },
+  {
+    "id": 5,
+    "title": "menu 5",
+    "description": "https://raw.githubusercontent.com/dasileker/food-wasafat/development/public/logo192.png"
+  },
+  {
+    "id": 6,
+    "title": "menu 6",
+    "description": "https://raw.githubusercontent.com/dasileker/food-wasafat/development/public/logo192.png"
+  }
+]
